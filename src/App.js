@@ -31,13 +31,14 @@ function App() {
 
     const getCarData = async () => {
         setLoading(true)
-        let url = "https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?line=TKL&sta=LHP"
+        let stationName = "LHP";
         if (tab !== "fromLHP"){
-            url ="https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?line=TKL&sta=TKL"
+            stationName = "TIK";
         }
+        let url = "https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?line=TKL&sta="+ stationName;
         const {data} = await axios.get(url);
-        setTrainTimeTable(data['data']['TKL-LHP']);
-        console.log(data['data']['TKL-LHP'])
+        setTrainTimeTable(data['data']['TKL-'+stationName]);
+        console.log(data['data']['TKL-'+stationName])
         setLoading(false)
     }
 
@@ -91,7 +92,7 @@ function App() {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {trainTimeTable["DOWN"].map((train) => (
+                                    {trainTimeTable[tab==="fromLHP"?"DOWN":"UP"]?.map((train) => (
                                         <TableRow
                                             key={train.time}
                                             sx={{'&:last-child td, &:last-child th': {border: 0}}}
