@@ -15,6 +15,7 @@ import {
     Tabs,
     ThemeProvider, Typography
 } from "@mui/material";
+import AdSense from 'react-adsense';
 
 import {StationEnum} from "./enum/StationEnum";
 
@@ -68,10 +69,9 @@ function App() {
     }
 
     return (
-
         <div className="App">
             <ThemeProvider theme={theme}>
-                <Tabs centered variant="fullWidth" onChange={handleTabChange}>
+                <Tabs value={tab} centered variant="fullWidth" onChange={handleTabChange}>
                     <Tab label="從康城出發" value="fromLHP"/>
                     <Tab label="調景嶺往康城" value="toLHP"/>
                 </Tabs>
@@ -109,6 +109,10 @@ function App() {
                     </div>
                 }
             </ThemeProvider>
+            <AdSense.Google
+                client='ca-pub-3706987806583518'
+                slot='7010513989'
+            />
         </div>
     );
 }
