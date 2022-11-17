@@ -27,7 +27,6 @@ function App() {
 
     useEffect(() => {
         getCarData();
-        console.log(StationEnum["LHP"])
     }, [tab]);
 
     const getCarData = async () => {
@@ -39,7 +38,6 @@ function App() {
         let url = "https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?line=TKL&sta="+ stationName;
         const {data} = await axios.get(url);
         setTrainTimeTable(data['data']['TKL-'+stationName]);
-        console.log(data['data']['TKL-'+stationName])
         setLoading(false)
     }
 
@@ -71,14 +69,14 @@ function App() {
     return (
         <div className="App">
             <ThemeProvider theme={theme}>
-                <Tabs value={tab} centered variant="fullWidth" onChange={handleTabChange}>
+                <Tabs sx={{marginY:"3vh"}} value={tab} centered variant="fullWidth" onChange={handleTabChange}>
                     <Tab label="從康城出發" value="fromLHP"/>
                     <Tab label="調景嶺往康城" value="toLHP"/>
                 </Tabs>
                 {loading && <div>Loading</div>}
                 {!loading &&
                     <div>
-                        <Box>
+                        <Box sx={{paddingY:"3vh"}}>
                             <Typography variant="h7">數據更新時間： {!loading ? trainTimeTable["curr_time"] : `Loading`}</Typography>
                         </Box>
                         <TableContainer component={Paper}>
