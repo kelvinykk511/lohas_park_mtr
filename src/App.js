@@ -69,15 +69,17 @@ function App() {
     return (
         <div className="App">
             <ThemeProvider theme={theme}>
-                <Tabs sx={{marginY:"3vh"}} value={tab} centered variant="fullWidth" onChange={handleTabChange}>
+                <Tabs sx={{marginTop:"3vh"}} value={tab} centered variant="fullWidth" onChange={handleTabChange}>
                     <Tab label="從康城出發" value="fromLHP"/>
                     <Tab label="調景嶺往康城" value="toLHP"/>
                 </Tabs>
                 {loading && <div>Loading</div>}
                 {!loading &&
                     <div>
-                        <Box sx={{paddingY:"3vh"}}>
+                        <Box sx={{paddingY:"3vh"}} onClick={getCarData}>
                             <Typography variant="h7">數據更新時間： {!loading ? trainTimeTable["curr_time"] : `Loading`}</Typography>
+                            <br/>
+                            <Typography sx={{fontSize:'0.8rem', color:'grey'}} variant="h7">按下以更新</Typography>
                         </Box>
                         <TableContainer component={Paper}>
                             <Table aria-label="simple table">
@@ -95,7 +97,7 @@ function App() {
                                             key={train.time}
                                             sx={{'&:last-child td, &:last-child th': {border: 0}}}
                                         >
-                                            <TableCell align="left">{train["source"]!=='-'?StationEnum[train["source"]]:StationEnum['LHP']}</TableCell>
+                                            <TableCell align="left">{tab==="toLHP"?StationEnum['TIK']:StationEnum['LHP']}</TableCell>
                                             <TableCell align="left">{StationEnum[train["dest"]]}</TableCell>
                                             <TableCell align="left">{handleDate(train["time"])}</TableCell>
                                             <TableCell align="left">{train["ttnt"]}分鐘</TableCell>
